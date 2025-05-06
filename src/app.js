@@ -1,5 +1,6 @@
 import express from "express";
 import conectaNaDatabase from "./config/dbConnect.js";
+import veiculo from "./models/Veiculo.js";
 
 const conexao = await conectaNaDatabase();
 
@@ -14,46 +15,26 @@ conexao.once("open", () => {
 const app = express();
 app.use(express.json());
 
-const carros = [
-  {
-    id: 1,
-    marca: "Porche",
-    modelo: "Carrera 911",
-    ano: 2023,
-  },
-  {
-    id: 2,
-    marca: "Porche",
-    modelo: "Macan",
-    ano: 2024,
-  },
-];
-
-function buscarCarro(id) {
-  return carros.findIndex((carro) => {
-    return carro.id === Number(id);
-  });
-}
-
 app.get("/", (req, res) => {
   res.status(200).send("Criando a minha primeira API com Node.js");
 });
 
-app.get("/carros", (req, res) => {
-  res.status(200).json(carros);
+app.get("/veiculos", async (req, res) => {
+  const listaVeiculos = await veiculo.find({});
+  res.status(200).json(listaVeiculos);
 });
 
-app.get("/carros/:id", (req, res) => {
+app.get("/veiculos/:id", (req, res) => {
   const index = buscarCarro(req.params.id);
   res.status(200).json(carros[index]);
 });
 
-app.post("/carros", (req, res) => {
+app.post("/veiculos", (req, res) => {
   carros.push(req.body);
   res.status(201).send("Carro cadastrado com sucesso!");
 });
 
-app.put("/carros/:id", (req, res) => {
+app.put("/veiculos/:id", (req, res) => {
   const index = buscarCarro(req.params.id);
   carros[index].marca = req.body.marca;
   carros[index].modelo = req.body.modelo;
@@ -61,7 +42,7 @@ app.put("/carros/:id", (req, res) => {
   res.status(200).json(carros);
 });
 
-app.delete("/carros/:id", (req, res) => {
+app.delete("/veiculos/:id", (req, res) => {
   const index = buscarCarro(req.params.id);
   carros.splice(index, 1);
   res.status(200).send("Carro removido com sucesso!");
