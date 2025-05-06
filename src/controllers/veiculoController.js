@@ -49,6 +49,20 @@ class VeiculoController {
         .json({ message: `${erro.message} - falha na requisição do veiculo` });
     }
   }
+
+  static async deletarVeiculo(req, res) {
+    try {
+      const id = req.params.id;
+      await veiculo.findByIdAndDelete(id);
+      res
+        .status(200)
+        .json({ message: "Veiculo cadastrado DELETADO com sucesso!" });
+    } catch (erro) {
+      res
+        .status(500)
+        .json({ message: `${erro.message} - falha na exclusão do veiculo` });
+    }
+  }
 }
 
 export default VeiculoController;

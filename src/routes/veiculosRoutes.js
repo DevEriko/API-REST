@@ -7,5 +7,6 @@ routes.get("/veiculos", VeiculoController.listarVeiculos);
 routes.get("/veiculos/:id", VeiculoController.listarVeiculoPorId);
 routes.post("/veiculos", VeiculoController.cadastrarVeiculo);
 routes.put("/veiculos/:id", VeiculoController.atualizarVeiculo);
+routes.delete("/veiculos/:id", VeiculoController.deletarVeiculo);
 
 export default routes;

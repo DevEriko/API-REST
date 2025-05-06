@@ -15,10 +15,4 @@ conexao.once("open", () => {
 const app = express();
 routes(app);
 
-app.delete("/veiculos/:id", (req, res) => {
-  const index = buscarCarro(req.params.id);
-  carros.splice(index, 1);
-  res.status(200).send("Carro removido com sucesso!");
-});
-
 export default app;
