@@ -1,6 +1,6 @@
 import express from "express";
 import conectaNaDatabase from "./config/dbConnect.js";
-import veiculo from "./models/Veiculo.js";
+import routes from "./routes/index.js";
 
 const conexao = await conectaNaDatabase();
 
@@ -13,16 +13,7 @@ conexao.once("open", () => {
 });
 
 const app = express();
-app.use(express.json());
-
-app.get("/", (req, res) => {
-  res.status(200).send("Criando a minha primeira API com Node.js");
-});
-
-app.get("/veiculos", async (req, res) => {
-  const listaVeiculos = await veiculo.find({});
-  res.status(200).json(listaVeiculos);
-});
+routes(app);
 
 app.get("/veiculos/:id", (req, res) => {
   const index = buscarCarro(req.params.id);
