@@ -1,4 +1,4 @@
-import proprietario from "../models/Proprietario.js";
+import { proprietario } from "../models/Proprietario.js";
 
 class ProprietarioController {
   static async listarProprietarios(req, res) {
