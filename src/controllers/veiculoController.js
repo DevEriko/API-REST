@@ -1,3 +1,4 @@
+import { proprietario } from "../models/Proprietario.js";
 import veiculo from "../models/Veiculo.js";
 
 class VeiculoController {
@@ -25,11 +26,19 @@ class VeiculoController {
   }
 
   static async cadastrarVeiculo(req, res) {
+    const novoVeiculo = req.body;
     try {
-      const novoVeiculo = await veiculo.create(req.body);
+      const proprietarioEncontrado = await proprietario.findById(
+        novoVeiculo.proprietario
+      );
+      const veiculoCompleto = {
+        ...novoVeiculo,
+        proprietario: { ...proprietarioEncontrado._doc },
+      };
+      const veiculoCriado = await veiculo.create(veiculoCompleto);
       res.status(201).json({
         message: "Veiculo cadastrado com sucesso!",
-        veiculo: novoVeiculo,
+        veiculo: veiculoCriado,
       });
     } catch (erro) {
       res

@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { proprietarioSchema } from "./Proprietario.js";
 
 const veiculoSchema = new mongoose.Schema(
   {
@@ -6,6 +7,7 @@ const veiculoSchema = new mongoose.Schema(
     nome_veiculo: { type: String, required: true },
     ano: { type: Number, required: true },
     cor: { type: String, required: true },
+    proprietario: proprietarioSchema,
   },
   { versionKey: false }
 );

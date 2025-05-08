@@ -9,6 +9,6 @@ const proprietarioSchema = new mongoose.Schema(
   { versionKey: false }
 );
 
-const proprietario = mongoose.model("proprietario", proprietarioSchema);
+const proprietario = mongoose.model("proprietarios", proprietarioSchema);
 
 export { proprietario, proprietarioSchema };
