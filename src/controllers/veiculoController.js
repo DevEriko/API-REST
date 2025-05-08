@@ -72,6 +72,20 @@ class VeiculoController {
         .json({ message: `${erro.message} - falha na exclusão do veiculo` });
     }
   }
+
+  static async listarVeiculoPorProprietario(req, res) {
+    const proprietario = req.query.proprietario;
+    try {
+      const veiculosPorProprietario = await veiculo.find({
+        proprietario: proprietario,
+      });
+      res.status(200).json(veiculosPorProprietario);
+    } catch (erro) {
+      res
+        .status(500)
+        .json({ message: `${erro.message} - falha na busca do veiculo` });
+    }
+  }
 }
 
 export default VeiculoController;
